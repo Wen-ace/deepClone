@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deepClone</title>
+</head>
+<body>
+<!--
+<script>
+    /**
+     * 不针对内置对象，如Math,Function,Window等。
+     * @param data data可以是数组也可以是对象。
+     * @returns {*}
+     */
+    function deepClone(data) {
+        var temp = null;
+        if (data == undefined) console.log('please enter a argument');
+        if (detailType(data)  !== 'Array' && detailType(data) !== 'Object' ){
+            temp = data;
+        }
+        if (detailType(data)  === 'Array'){
+            temp = copyArr(data);
+        }
+        if (detailType(data) === 'Object') {
+            temp = copyObj(data);
+        }
+        return temp;
+    }
+    /**
+     * 检测数据的具体类型，主要区分数组和对象。
+     * @param data data 为任意数据。
+     * @returns {String} 返回具体的数据类型字符串。
+     */
+   function detailType(data) {
+       var type = Object.prototype.toString.call(data);
+       var pattern = /^\[object\s+([A-Z]\w*)\]/;
+       return type.match(pattern)[1];
+   }
+    /**
+     * 深度复制数组
+     * @param arr
+     * @returns {Array}
+     */
+   function copyArr(arr) {
+       var tempArr = [];
+       arr.forEach(function (v,i) {
+           tempArr[i] = deepClone(v);
+       });
+       return tempArr;
+   }
+    /**
+     * 深度复制对象。
+     * @param obj
+     * @returns {{}}
+     */
+   function copyObj(obj) {
+       var tempObj = {};
+       for (var key in obj){
+           tempObj[key] = deepClone(obj[key]);
+       }
+       return tempObj;
+   }
+
+</script>
+-->
+<script>
+    var deepClone = (function () {
+        /**
+         * 不针对内置对象，如Math,Function,Window等。
+         * @param data data可以是数组也可以是对象。
+         * @returns {*}
+         */
+        function deepClone(data) {
+            var temp = null;
+            if (data == undefined) console.log('please enter a argument');
+            if (detailType(data)  !== 'Array' && detailType(data) !== 'Object' ){
+                temp = data;
+            }
+            if (detailType(data)  === 'Array'){
+                temp = copyArr(data);
+            }
+            if (detailType(data) === 'Object') {
+                temp = copyObj(data);
+            }
+            return temp;
+        }
+        /**
+         * 检测数据的具体类型，主要区分数组和对象。
+         * @param data data 为任意数据。
+         * @returns {String} 返回具体的数据类型字符串。
+         */
+        function detailType(data) {
+            var type = Object.prototype.toString.call(data);
+            var pattern = /^\[object\s+([A-Z]\w*)\]/;
+            return type.match(pattern)[1];
+        }
+        /**
+         * 深度复制数组
+         * @param arr
+         * @returns {Array}
+         */
+        function copyArr(arr) {
+            var tempArr = [];
+            arr.forEach(function (v,i) {
+                tempArr[i] = deepClone(v);
+            });
+            return tempArr;
+        }
+        /**
+         * 深度复制对象。
+         * @param obj
+         * @returns {{}}
+         */
+        function copyObj(obj) {
+            var tempObj = {};
+            for (var key in obj){
+                tempObj[key] = deepClone(obj[key]);
+            }
+            return tempObj;
+        }
+        return deepClone;
+    })();
+    var a = deepClone({name:['we','are',{f:'fam'}],age:18});
+    console.dir(a)
+</script>
+</body>
+</html>
